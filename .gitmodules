@@ -1,0 +1,3 @@
+[submodule "ReactMobileScraper"]
+	path = ReactMobileScraper
+	url = ./ReactMobileScraper
