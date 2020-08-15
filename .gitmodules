@@ -1,3 +1,6 @@
 [submodule "ReactMobileScraper"]
 	path = ReactMobileScraper
 	url = ./ReactMobileScraper
+[submodule "movieScraper-mobileapp"]
+	path = movieScraper-mobileapp
+	url = https://github.com/asafkurbegovic/movieScraper-mobileapp
