@@ -1,7 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
 from flask import Flask, jsonify
-from markupsafe import escape
 
 
 #       TODO TAKE USERS INPUT AND REPLACE ALL WHITESPACES WITH - [FOR ROTTEN TOMATOES]
@@ -92,13 +91,15 @@ def do_dhis(movie):
     photos = []
     for links in tbody.find_all('td', {'class': 'primary_photo'}):
         ids.append(links.find('a').get('href'))
-        photos.append(links.find('img').get('src'))
+        photo = links.find('img').get('src')
+        info={'photo':photo}
+        photos.append(info)
     titles=[]
     for links in tbody.find_all('td', {'class': 'result_text'}):
 
         name = links.find('a').getText()
-        year =links.getText()
-        infos={'title':name,'year':year}
+       # year =links.getText() ,'year':year
+        infos={'title':name}
         titles.append(infos)
 
 
@@ -106,7 +107,8 @@ def do_dhis(movie):
     for x in ids:
         correctIds.append(x[7:-1])
 
-    infos = [correctIds], [photos], [titles]
+    infos ={'ids': correctIds,'photos': photos,'titles': titles},
+    result=[infos,movie]
     return jsonify(searchResult=infos,
                    searchedMovie=movie)
 
