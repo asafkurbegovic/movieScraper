@@ -46,7 +46,7 @@ detailSoup = BeautifulSoup(detailsReq.text, 'html.parser')
 
 titleBlock = detailSoup.find(class_='title_block')
 movieTitle = titleBlock.find('h1', {'class':''}).getText()
-print(movieTitle)
+print('this is that part'+ movieTitle)
 movieRating = titleBlock.find('strong').get('title')
 print(movieRating)
 print()
@@ -111,6 +111,20 @@ def do_dhis(movie):
     result=[infos,movie]
     return jsonify(searchResult=infos,
                    searchedMovie=movie)
+
+
+@app.route('/id/<movieID>')
+def movieInfo(movieID):
+    detailsReq = requests.get('https://www.imdb.com/title/' + movieID)
+    detailSoup = BeautifulSoup(detailsReq.text, 'html.parser')
+
+    titleBlock = detailSoup.find(class_='title_block')
+    movieTitle = titleBlock.find('h1', {'class': ''}).getText()
+    movieRating = titleBlock.find('strong').get('title')
+    movieInfo={'movieTitle': movieTitle, 'movieRating': movieRating}
+    return jsonify(result=movieInfo)
+
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0',port=5000)
