@@ -48,7 +48,7 @@ titleBlock = detailSoup.find(class_='title_block')
 movieTitle = titleBlock.find('h1', {'class':''}).getText()
 print('this is that part'+ movieTitle)
 movieRating = titleBlock.find('strong').get('title')
-print(movieRating)
+print('and this one is with problem'+movieRating)
 print()
 
 #       HANDLING ROTTEN TOMATOES REQUESTS AND RATINGS
@@ -122,7 +122,7 @@ def movieInfo(movieID):
     movieTitle = titleBlock.find('h1', {'class': ''}).getText()
     movieRating = titleBlock.find('strong').get('title')
     movieInfo={'movieTitle': movieTitle, 'movieRating': movieRating}
-    return jsonify(result=movieInfo)
+    return jsonify(title=movieTitle,rating= movieRating)
 
 
 
