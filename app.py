@@ -117,12 +117,15 @@ def do_dhis(movie):
 def movieInfo(movieID):
     detailsReq = requests.get('https://www.imdb.com/title/' + movieID)
     detailSoup = BeautifulSoup(detailsReq.text, 'html.parser')
+    photoClass = detailSoup.find(class_ = 'poster')
+    photo= photoClass.find('img').get('src')
+
 
     titleBlock = detailSoup.find(class_='title_block')
     movieTitle = titleBlock.find('h1', {'class': ''}).getText()
     movieRating = titleBlock.find('strong').get('title')
-    movieInfo={'movieTitle': movieTitle, 'movieRating': movieRating}
-    return jsonify(title=movieTitle,rating= movieRating)
+    movieInfo={'movieTitle': movieTitle, 'movieRating': movieRating, 'photo':photo}
+    return jsonify(result = movieInfo)
 
 
 
